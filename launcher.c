@@ -26,7 +26,6 @@ int main(void) {
 
     int current_fps = FRAMERATE;
 
-    /*<Hello Triangle>*/
     float triangle_vertices[] = {
         1.0f,  1.0f,  0.0f,  // top right
         1.0f,  -1.0f, 0.0f,  // bottom right
@@ -34,11 +33,9 @@ int main(void) {
         -1.0f, 1.0f,  0.0f   // top left
     };
     unsigned int indices[] = {
-        // note that we start from 0!
         0, 1, 3,  // first triangle
         1, 2, 3   // second triangle
     };
-    /*</Hello Triangle>*/
 
     if (!glfwInit()) {
         return -1;
@@ -47,7 +44,6 @@ int main(void) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    // glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     window = glfwCreateWindow(SCREEN_SIZE, SCREEN_SIZE, "Julia set renderer", NULL, NULL);
     glfwSetCursorPosCallback(window, cursor_position_callback);
@@ -72,48 +68,6 @@ int main(void) {
 
     populate_shader(&shader, "shaders/verts.vts", "shaders/julia_frags.frs");
     glUseProgram(shader.program);
-    /*<Hello Triangle>
-
-    unsigned int vertex_shader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertex_shader, 1, &vertex_shader_source, NULL);
-    glCompileShader(vertex_shader);
-
-    // check for compilation errors:
-    int success;
-    char infoLog[512];
-    glGetShaderiv(vertex_shader, GL_COMPILE_STATUS, &success);
-    if (!success) {
-        glGetShaderInfoLog(vertex_shader, 512, NULL, infoLog);
-        printf("ERROR: Vertex shader compilation failed:\n %s\n", infoLog);
-    }
-
-    unsigned int fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragment_shader, 1, &fragment_shader_source, NULL);
-    glCompileShader(fragment_shader);
-
-    glGetShaderiv(fragment_shader, GL_COMPILE_STATUS, &success);
-    if (!success) {
-        glGetShaderInfoLog(vertex_shader, 512, NULL, infoLog);
-        printf("ERROR: Fragment shader compilation failed:\n %s\n", infoLog);
-    }
-
-    unsigned int shader_program = glCreateProgram();
-    glAttachShader(shader_program, vertex_shader);
-    glAttachShader(shader_program, fragment_shader);
-    glLinkProgram(shader_program);
-
-    // check for linker errors
-    glGetProgramiv(shader_program, GL_LINK_STATUS, &success);
-    if (!success) {
-        glGetProgramInfoLog(shader_program, 512, NULL, infoLog);
-        printf("ERROR. Shader program linking failed: %s\n", infoLog);
-    }
-
-    glDeleteShader(vertex_shader);
-    glDeleteShader(fragment_shader);
-
-
-    </Hello Triangle>*/
 
     unsigned int VAO, VBO, EBO;
     glGenVertexArrays(1, &VAO);
